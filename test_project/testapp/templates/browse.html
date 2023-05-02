@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Browse</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+        html {
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #FFFAFA;
+  background-size: 20px 20px;
+  font-family: 'Lato', sans-serif;
+}
+
+.title-container {
+  margin: .5rem auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 0 #1A1110;
+  text-align: center;
+  max-width: 500px;
+}
+
+.picture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  padding: .5rem .5rem 2rem .5rem;
+  justify-items: center;
+}
+
+.picture {
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+}
+
+.picture-image {
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 0 #1A1110;
+}
+
+.picture-caption {
+  margin-top: .5rem;
+  padding: .5rem;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 3px 3px 0 0 #1A1110;
+  max-width: 250px;
+}
+        </style>
+        <!-- <SCRIPT language="JavaScript">
+var password; 
+var pass1="g0valp0"; 
+password=prompt('Enter Password',''); 
+        if (password===pass1) {
+
+        }
+        else {
+            window.location = "http:vas.cis.valpo.edu/maa";
+        }
+</SCRIPT> -->
+      
+        </head>
+<body>
+    <!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-yellow w3-card w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="/maa" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
+      <a href="/maa/search" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Search</a>
+      <a href="/maa/browse" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Browse</a>
+      <a href="/maa/contact" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+      <a href="/maa" class="w3-bar-item w3-button w3-padding-large">Home</a>
+      <a href="/maa/search" class="w3-bar-item w3-button w3-padding-large">Search</a>
+      <a href="/maa/browse" class="w3-bar-item w3-button w3-padding-large">Browse</a>
+      <a href="/maa/contact" class="w3-bar-item w3-button w3-padding-large">Contact</a>
+    </div>
+</div>
+</body>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+  <div class="title-container">
+    <h1><a href="static/Docs/thebigone.pdf" target="_blank">All PDFs</a></h1>
+  </div>
+
+  <div class="picture-grid">
+    {% if d %}
+    {% for i in d %}
+    <div class="picture">
+      <svg class="picture-image" height="160px" width="280px" viewBox="0 0 280 160">
+        <rect x="0" y="0" rx="10" ry="10" width="280" height="160"
+  style="fill:white;" />
+        <image href="{{ i.filePath }}.jpg" width="96%" height="250%" x="2%" y="10%"></image>
+      </svg>
+      <div class="picture-caption">
+        <a href= "{{ i.filePath }}.pdf" target="_blank">{{i.Title}}</a>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+</body>
+</html>
