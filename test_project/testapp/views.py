@@ -134,4 +134,6 @@ def Search(request):
     
     
 def show_pdf(request,f,p,doc):
+    # Reads if a 3 part url (ie. static/Docs/ex.pdf) is passed from the templates and passes each part as a variable
     return FileResponse(open('/home/maahistory/public_html/test_project/' + f + '/' + p + '/' + doc, 'rb'), content_type='application/pdf')
+    # places those variables back into a FileResponse which looks for a pdf at that filepath and displays it.
