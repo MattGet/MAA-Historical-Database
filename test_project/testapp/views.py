@@ -14,6 +14,7 @@ def index(request):
 def contact(request):
     return render(request, 'contact.html')
         
+    # take the csv file of locally stored pdfs and use it to render the browse page
 def browse(request):
     df = pd.read_csv("/home/maahistory/public_html/test_project/static/docsv.csv")
     json_records = df.reset_index().to_json(orient='records')
@@ -24,14 +25,14 @@ def browse(request):
     
     
 def Search(request):
+    # combine all of the source CSV files
     df = df = pd.concat(
     map(pd.read_csv, ["/home/maahistory/public_html/test_project/static/amm-sampled-metadata.csv",
      "/home/maahistory/public_html/test_project/static/Sampled-MetaData-IndianSection.csv"]), ignore_index=True)
 
     df = df.applymap(str)
-    # parsing the DataFrame in json format.
 
-    
+    # Search for matching words in the title of documents
     if 'q' in request.GET:
         q = request.GET['q']
         if q == '':
@@ -45,6 +46,7 @@ def Search(request):
     else:
         print("rendering a default view")
 
+    # remove all entries below the specified date
     if 'y' in request.GET:
         y = request.GET['y']
         if y == '':
@@ -56,6 +58,7 @@ def Search(request):
     else:
         print("rendering date default view")
 
+    # remove all entries above the maximum date
     if 'y2' in request.GET:
         y2 = request.GET['y2']
         if y2 == '':
@@ -67,6 +70,7 @@ def Search(request):
     else:
         print("rendering date default view")
 
+    # remove all entries not within the specified volume
     if 'v' in request.GET:
         v = request.GET['v']
         if v == '':
@@ -77,7 +81,8 @@ def Search(request):
             print("Sorted volume with query")
     else:
         print("rendering volume default view")
-
+    
+    # sort through each possible sort and apply the appropriate filter if found
     if 'sort' in request.GET:
         sort = request.GET['sort']
         if sort == '':
@@ -125,7 +130,7 @@ def Search(request):
     else:
         df = df.sort_values(by=['publicationYear'], ascending=True)
 
-
+    # convert csv file to json and render the search.html page
     json_records = df.reset_index().to_json(orient='records')
     data = []
     data = json.loads(json_records)
