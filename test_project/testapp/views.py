@@ -13,8 +13,8 @@ def index(request):
     
 def contact(request):
     return render(request, 'contact.html')
-        
-    # take the csv file of locally stored pdfs and use it to render the browse page
+    
+# take the csv file of locally stored pdfs and use it to render the browse page        
 def browse(request):
     df = pd.read_csv("/home/maahistory/public_html/test_project/static/docsv.csv")
     json_records = df.reset_index().to_json(orient='records')
@@ -25,13 +25,17 @@ def browse(request):
     
     
 def Search(request):
-    # combine all of the source CSV files
-    df = df = pd.concat(
-    map(pd.read_csv, ["/home/maahistory/public_html/test_project/static/amm-sampled-metadata.csv",
-     "/home/maahistory/public_html/test_project/static/Sampled-MetaData-IndianSection.csv"]), ignore_index=True)
+# read csv file and import it as a pandas dataframe
+    df = pd.read_csv("/home/maahistory/public_html/test_project/static/All-AMM-metadata.csv")
+    
+    # df = df = pd.concat(
+    # map(pd.read_csv, ["/home/maahistory/public_html/test_project/static/All-AMM-metadata.csv",
+    # "/home/maahistory/public_html/test_project/static/Sampled-MetaData-IndianSection.csv"]), ignore_index=True)
 
-    df = df.applymap(str)
+    # df = df.applymap(str)
+    # parsing the DataFrame in json format.
 
+    
     # Search for matching words in the title of documents
     if 'q' in request.GET:
         q = request.GET['q']
